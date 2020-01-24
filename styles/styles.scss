@@ -1,0 +1,481 @@
+@import 'global/index';
+
+body {
+  color: $black;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: $font-family-base;
+  line-height: 1.2;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 75px 1fr;
+  grid-template-rows: 1fr;
+  height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.navigation {
+  background-color: $snow;
+  display: grid;
+  grid-template-rows: 10% 90%;
+  grid-template-columns: 1fr;
+  height: 100%;
+  border-right: 1px solid $border-color;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+  max-width: 100%;
+
+  .btn-icon {
+    display: block;
+    @include rem('margin-right', 30px);
+  }
+}
+
+.list {
+  display: grid;
+  grid-template-rows: 25fr 25fr 25fr 25fr;
+  grid-template-columns: 1fr;
+  height: 100%;
+  width: auto;
+  border-top: 1px solid $border-color;
+  align-items: flex-end;
+  justify-items: center;
+  max-width: 100%;
+  @include rem('padding-top', 40px);
+}
+
+.list-item {
+  color: $quaternary;
+  font-size: $font-size-m;
+  font-weight: $font-weight-book;
+  text-transform: uppercase;
+  letter-spacing: 0.25rem;
+  padding: $spacer-20;
+  -webkit-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  transform: rotate(270deg);
+  //-webkit-writing-mode: sideways-rl; Doesn't work in Chrome
+  //-ms-writing-mode: sideways-rl; Doesn't work in Chrome
+  //writing-mode: sideways-rl; Doesn't work in Chrome
+  -webkit-transform-origin: left;
+  -ms-transform-origin: left;
+  text-align: center;
+  white-space: nowrap;
+  text-decoration: none;
+  transform-origin: (0 0);
+
+  &:before {
+    display: inline-block;
+    content: "";
+    width: 100%;
+    position: absolute;
+    transform-origin: top;
+    height: 100%;
+    top: 0%;
+    right: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(17%) rotate(0deg);
+  }
+
+  &:hover {
+    &:before {
+      color: $primary;
+    }
+  }
+
+  &.active {
+    color: $black;
+
+    &:before {
+      border-bottom: 2px solid $black;
+    }
+  }
+}
+
+.btn-icon {
+  padding: $spacer-10;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 22rem 1fr;
+  grid-template-rows: 1fr;
+  height: 100%;
+  width: 100%;
+}
+
+aside {
+  display: grid;
+  grid-template-rows: 18% 1fr;
+  grid-template-columns: 1fr;
+  height: 100%;
+  background-color: $snow;
+  padding: 30px 20px 30px 50px;
+
+  .card {
+    box-shadow: none;
+    padding: 0;
+  }
+}
+
+
+section {
+  position: relative;
+  display: grid;
+  grid-template-rows: 20% 1fr 20%;
+  grid-template-columns: 1fr;
+  justify-content: end;
+  height: 100%;
+  background-color: $tertiary;
+  @include rem('padding', 30px 0 30px 0);
+  z-index: 0;
+  box-shadow: $box-shadow;
+
+  nav {
+    justify-self: end;
+
+    .image {
+      &:before {
+        color: $white;
+      }
+    }
+  }
+
+  .btn-primary {
+    position: absolute;
+    top: calc((100vh / 2) + 14vh);
+    left: calc((100vw / 2) - 60vw);
+    z-index: 1;
+    @include rem('padding', 16px 100px);
+    color: $white;
+    text-transform: uppercase;
+    @include rem('border-radius', 30px);
+    font-size: $font-size-s;
+    cursor: pointer;
+
+    .fas {
+      @include rem('padding-left', 20px);
+    }
+  }
+
+}
+
+
+.content-top {
+  display: grid;
+  z-index: 1;
+  align-content: flex-end;
+  grid-template-rows: 4rem 18rem 0;
+  grid-template-columns: auto;
+  height: 100%;
+}
+
+.content {
+  display: grid;
+  grid-template-rows: 70% 30%;
+
+  .card-list {
+    align-self: end;
+  }
+}
+
+h1 {
+  @include rem('font-size', 42px);
+  margin: 0;
+}
+
+
+.dropdown-toggle {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 10% auto;
+  @include rem('grid-gap', 20px);
+  align-items: center;
+
+  .image {
+    position: relative;
+
+    &:after {
+      position: absolute;
+      @include rem('top', -10px);
+      content: '3';
+      background-color: $red;
+      color: $white;
+      border-radius: 50%;
+      @include rem('width', 16px);
+      @include rem('height', 16px);
+      @include rem('line-height', 16px);
+      font-size: $font-size-xs;
+    }
+  }
+}
+
+.title {
+  @include rem('letter-spacing', 5px);
+  position: absolute;
+
+  width: auto;
+  min-width: 30%;
+  max-width: 27%;
+  margin: 0;
+  top: 15vh;
+
+  line-height: unset;
+  font-size: calc(50px + (72 - 50) * ((100vw - 320px) / (1600 - 320)));
+
+  &:before,
+  &:after {
+    content: attr(data-text);
+  }
+
+  &:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &:after {
+    color: $black;
+    clip: rect(0px 300px 180px 0px);
+  }
+
+  &:before {
+    color: $white;
+    clip: rect(0 45px 40px 0);
+  }
+}
+
+.divider {
+  display: block;
+  @include rem('height', 1px);
+  width: 30%;
+  background-color: $black;
+  @include rem('margin', 30px 0);
+}
+
+.arrows {
+  align-self: end;
+  justify-self: center;
+  color: $white;
+
+  .fas {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-base;
+    color: $quinary;
+    cursor: pointer;
+  }
+
+  .arrow-left {
+    @include rem('padding-right', 30px);
+  }
+
+  .active {
+    .fas {
+      color: $white;
+      font-size: $font-size-xl;
+    }
+  }
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 1fr;
+  border: 1px solid transparent;
+  box-shadow: 17px 11px 19px 1px rgba(0, 0, 0, 0.24);
+  @include rem('padding', 30px);
+  position: relative;
+  z-index: 0;
+  border-radius: $border-radius;
+
+  &:before {
+    position: absolute;
+    background-image: url("../assets/surfone.jpg");
+    background-repeat: no-repeat;
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-position: 35% 100%;
+    background-size: auto 100%;
+    z-index: -1;
+    border-radius: $border-radius;
+  }
+
+  &:nth-child(2n) {
+    &:before {
+      background-image: url("../assets/surftwo.jpg");
+    }
+  }
+
+  &:last-of-type {
+    &:before {
+      background-image: url("../assets/surfthree.jpg");
+    }
+  }
+}
+
+.card-header {
+  p {
+    color: $white;
+    font-size: $font-size-xxl;
+    text-transform: uppercase;
+    letter-spacing: 0.10rem;
+  }
+
+  .type {
+    display: block;
+    color: $white;
+    font-size: $font-size-s;
+    @include rem('padding', 5px 0);
+    letter-spacing: 0.10rem;
+  }
+}
+
+.card-body {
+  h2 {
+    color: $white;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+  }
+
+  .divider {
+    @extend .divider;
+    background-color: $white;
+    display: block;
+    @include rem('margin', 10px 0);
+  }
+
+  .grid {
+    grid-template-columns: 40px auto;
+    grid-gap: 0;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 20% 1fr;
+  @include rem('grid-gap', 20px);
+}
+
+.grid-item {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  grid-template-rows: 1fr;
+  @include rem('grid-gap', 10px);
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-item-column {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+.name {
+  color: white;
+  font-size: $font-size-small;
+  font-weight: $font-weight-bold;
+  @include rem('padding-bottom', 5px);
+}
+
+.email {
+  @extend .name;
+  font-weight: $font-weight-light;
+}
+
+
+.image {
+  display: block;
+  @include rem('padding', 2px);
+  border: 1px solid $primary;
+  border-radius: 50%;
+  text-align: center;
+  @include rem('width', 30px);
+  @include rem('height', 30px);
+
+
+  &:before {
+    display: inline-block;
+    font-family: FontAwesome;
+    content: '\f007';
+    color: $black;
+    font-size: $font-size-m;
+    vertical-align: middle;
+  }
+}
+
+.container-block {
+  @extend .container;
+  grid-template-columns: 25% 1fr;
+}
+
+.container-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-gap: 2%;
+
+  .card {
+    display: grid;
+    grid-template-rows: 70% 30%;
+
+    .card-body {
+      align-self: end;
+    }
+  }
+}
+
+
+aside {
+  h3 {
+    font-size: $font-size-l;
+    @include rem('padding', 20px 0);
+  }
+
+  .grid {
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    @include rem('grid-gap', 10px);
+  }
+
+  .name {
+    color: $black;
+  }
+
+  nav {
+    span {
+      position: relative;
+      display: block;
+      vertical-align: middle;
+      @include rem('padding-left', 40px);
+      color: $quaternary;
+
+      &:before {
+        position: absolute;
+        @include rem('top', -5px);
+        left: 0;
+        content: 'S';
+        background-color: $quaternary;
+        color: $white;
+        @include rem('padding', 2px);
+        @include rem('width', 30px);
+        @include rem('height', 30px);
+        @include rem('line-height', 24px);
+        text-align: center;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+
+@import "global/mobile";
+
+

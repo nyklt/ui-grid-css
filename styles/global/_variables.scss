@@ -1,0 +1,182 @@
+// Variables
+$red: #D90404;
+$orange: #F16915;
+$yellow: #EB9219;
+$green: #02734A;
+$blue: #0004BF;
+
+$sage: #87BCBF;
+$rust: #D97D54;
+$drab: #324755;
+$onyx: #1B1C20;
+$slate: #6E8CA0;
+$snow: #FFFFFF;
+$ice: #F0F3F4;
+$steel: #C8D1D3;
+$sand: #B9B0A2;
+
+$colors: ();
+
+$colors: map-merge(
+  (
+    "sage":       $sage,
+    "rust":       $rust,
+    "drab":       $drab,
+    "onyx":       $onyx,
+    "slate":      $slate,
+    "red":        $red,
+    "orange":     $orange,
+    "yellow":     $yellow,
+    "green":      $green,
+    "blue":       $blue,
+  ),
+  $colors
+);
+
+$black: #000;
+$white: #fff;
+
+//Pallet theme
+$primary:       $sage;
+$secondary:     $rust;
+$tertiary:      $drab;
+$quaternary:    $onyx;
+$quinary:       $slate;
+$success:       $green;
+$info:          $blue;
+$warning:       $yellow;
+$danger:        $red;
+$light:         $white;
+$dark:          $black;
+
+
+$theme-colors: ();
+$theme-colors: map-merge(
+  (
+    "primary":    $primary,
+    "secondary":  $secondary,
+    "tertiary":   $tertiary, 
+    "quaternary": $quaternary,
+    "quinary":    $quinary,
+    "success":    $success,
+    "info":       $info,
+    "warning":    $warning,
+    "danger":     $danger,
+    "light":      $light,
+    "dark":       $dark
+  ),
+  $theme-colors
+);
+
+@function theme-color($key: "primary") {
+  @return map-get($theme-colors, $key);
+}
+
+
+
+$body-bg:                   $white;
+$body-color:                $black;
+
+$enable-caret:                                true;
+$enable-rounded:                              true;
+$enable-shadows:                              false;
+$enable-gradients:                            false;
+$enable-transitions:                          true;
+$enable-prefers-reduced-motion-media-query:   true;
+$enable-grid-classes:                         true;
+$enable-pointer-cursor-for-buttons:           true;
+$enable-print-styles:                         true;
+$enable-responsive-font-sizes:                false;
+$enable-validation-icons:                     true;
+$enable-deprecation-messages:                 true;
+
+$yiq-contrasted-threshold:  150;
+
+// Customize the light and dark text colors for use in our YIQ color contrast function.
+$yiq-text-dark:  $black;
+$yiq-text-light: $white;
+
+/* get the required local files */
+@font-face {
+  font-family: 'Roboto';
+  src: url('roboto.eot'); /* IE9 Compat Modes */
+  src: url('roboto.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('roboto.woff') format('woff'), /* Modern Browsers */
+  url('roboto.ttf')  format('truetype'), /* Safari, Android, iOS */
+  url('roboto.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+$baseline-px: 16px;
+$font-family-base: 'Roboto', sans-serif;
+
+$font-size-base: 1rem; 
+
+$h1-font-size: $font-size-base * 1.429;
+$h2-font-size: $font-size-base * 1.286;
+$h3-font-size: $font-size-base * 1.143;
+$h4-font-size: $font-size-base * 1;
+
+$font-size-extra-small: 0.5rem; // 8px
+$font-size-xxs: 0.625rem; // 10px
+$font-size-xs: 0.6875rem; // 11px
+$font-size-s: 0.75rem; // 12px
+$font-size-small: 0.8125rem; //13px
+$font-size-m: 0.875rem; // 14px
+$font-size-l: 1rem; //16px
+$font-size-xl: 1.125rem; //18px
+$font-size-xxl: 1.25rem; //20px
+
+$line-height-s: 0.75rem; // 12px
+$line-height-m: 0.875rem; // 14px
+$line-height-l: 1rem; //16px
+$line-height-xl: 1.125rem; //18px
+$line-height-xxl: 1.25rem; //20px
+$line-height-x-xl: 1.5rem; //24px
+
+
+$font-weight-light: 300;
+$font-weight-book: 400;
+$font-weight-medium: 500;
+$font-weight-base: 600;
+$font-weight-bold: 700;
+$font-weight-normal: $font-weight-book;
+
+$spacer-5: 0.3125rem; //5px
+$spacer-8: 0.5rem; //8px
+$spacer-10: 0.625rem; // 10px
+$spacer-15: 0.9375rem; // 15px
+$spacer-20: 1.25rem; // 20px
+
+$border-width:  1px;
+$border-color: $tertiary;
+
+$border-radius: .25rem;
+$line-height-base: 1.5;
+$component-active-bg:  theme-color("primary");
+$box-shadow: 0 .5rem 1rem rgba($black, .15);
+
+$padding-y:         .375rem;
+$padding-x:         .75rem;
+$font-family:       null;
+$font-size:         $font-size-base;
+$line-height:       $line-height-base;
+$transition:   color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+$focus-box-shadow: 0 0 0 .2rem rgba($component-active-bg, .25);
+$disabled-opacity:  .65;
+$active-box-shadow:  inset 0 3px 5px rgba($black, .125);
+$focus-width: .2rem;
+
+$btn-block-spacing-y: .5rem ;
+
+$link-disabled-color: $quinary;
+$link-color:  theme-color("primary");  
+$link-decoration: none;
+$link-hover-color: darken($link-color, 15%);
+$link-hover-decoration:   underline;
+
+
+
+
+
+
+

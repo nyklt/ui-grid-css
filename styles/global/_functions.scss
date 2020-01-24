@@ -1,0 +1,184 @@
+
+
+//Convert px to rem
+@mixin rem($property, $px-values) {
+  // Convert the baseline into rems
+  $baseline-rem: $baseline-px / 1rem;  
+  // Print the first line in pixel values
+  #{$property}: $px-values;
+  // If there is only one (numeric) value, return the property/value line for it.
+  @if type-of($px-values) == "number" {
+    #{$property}: $px-values / $baseline-rem;
+  } @else {
+    // Create an empty list that we can dump values into
+    $rem-values: unquote(""); 
+    @each $value in $px-values {
+      // If the value is zero, return 0
+      @if $value == 0 {
+        $rem-values: append($rem-values, $value);
+      } @else {
+        $rem-values: append($rem-values, $value / $baseline-rem);
+      }
+    }
+    // Return the property and its list of converted values
+    #{$property}: $rem-values;
+  }
+}
+
+
+//Animations
+$ease: (
+  in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53),
+  in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19),
+  in-quart: cubic-bezier(0.895, 0.03, 0.685, 0.22),
+  in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06),
+  in-sine: cubic-bezier(0.47, 0, 0.745, 0.715),
+  in-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035),
+  in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.335),
+  in-back: cubic-bezier(0.6, -0.28, 0.735, 0.045),
+  out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94),
+  out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1),
+  out-quart: cubic-bezier(0.165, 0.84, 0.44, 1),
+  out-quint: cubic-bezier(0.23, 1, 0.32, 1),
+  out-sine: cubic-bezier(0.39, 0.575, 0.565, 1),
+  out-expo: cubic-bezier(0.19, 1, 0.22, 1),
+  out-circ: cubic-bezier(0.075, 0.82, 0.165, 1),
+  out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275),
+  in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955),
+  in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1),
+  in-out-quart: cubic-bezier(0.77, 0, 0.175, 1),
+  in-out-quint: cubic-bezier(0.86, 0, 0.07, 1),
+  in-out-sine: cubic-bezier(0.445, 0.05, 0.55, 0.95),
+  in-out-expo: cubic-bezier(1, 0, 0, 1),
+  in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86),
+  in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55)
+);
+
+@function ease($key) {
+  @if map-has-key($ease, $key) {
+    @return map-get($ease, $key);
+  }
+
+  @warn "Unkown '#{$key}' in $ease.";
+  @return null;
+}
+
+@each $key, $val in $ease {
+  .ball {
+    &.#{$key} {
+      animation: there-and-back 2.5s $val infinite alternate;
+    }
+  }
+}
+//Example function call
+.row {
+  height: 25px;
+  width: 100%;
+  position: relative;
+}
+.ball {
+  background-color: skyblue;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  left: 0;
+  position: absolute;
+  top: 50%;
+  animation: there-and-back 2.5s ease(in-quad) infinite alternate;
+}
+
+@keyframes there-and-back {
+  to {
+    left: 100%;
+  }
+}
+
+// @function strip-unit($value) {
+//   @return $value / ($value * 0 + 1);
+// }
+
+// @mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {
+//   $u1: unit($min-vw);
+//   $u2: unit($max-vw);
+//   $u3: unit($min-font-size);
+//   $u4: unit($max-font-size);
+
+//   @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+//     & {
+//       font-size: $min-font-size;
+//       @media screen and (min-width: $min-vw) {
+//         font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+//       }
+//       @media screen and (min-width: $max-vw) {
+//         font-size: $max-font-size;
+//       }
+//     }
+//   }
+// }
+
+// $min_width: 320px;
+// $max_width: 1200px;
+// $min_font: 16px;
+// $max_font: 24px;
+
+// html {
+//   @include fluid-type($min_width, $max_width, $min_font, $max_font);
+// }
+
+
+//Typography
+
+.fluid-title {
+  //   font-size: calc(14px + 24 * ((100vw - 420px) / 480));
+    font-size: calc(16px + (18 - 16) * ((100vw - 320px) / (1600 - 320)));
+  }
+  
+  @media (max-width: 768px) {
+    .fluid-title {
+      font-size: calc(16px + (18 - 16) * ((100vw - 481px) / (768 - 481)));
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .fluid-title {
+      font-size: calc(16px + (18 - 16) * ((100vw - 300px) / (480 - 300)));
+    }
+  }
+  
+  // @mixin typography($font-size, $cpl){
+  //   //line-width (30 cpl — 90 cpl) or (8 words— 12 words).
+  //   $line-height: 1.618;
+  //   font-size: $font-size;
+  //   line-height: $font-size * $line-height;
+  //   width: $cpl * ($font-size/$line-height);
+  // }
+  
+  // .title{
+  //   @include typography(14px, 90);
+  //   margin: 20px 0;
+  // }
+  
+  @mixin typography($font-size) {
+    //line-width (30 cpl — 90 cpl) or (8 words— 12 words).
+    $cpl: 90;
+    $line-height: 1.618;
+    font-size: $font-size;
+    line-height: $font-size * $line-height;
+    width: $cpl * ($font-size/$line-height);
+  }
+  
+  .title {
+    @include typography(14px);
+    margin: 20px 0;
+  }
+
+//   //Padding
+//   $padding-item: 20;
+
+// @for $i from 1 through $padding-item {
+//   .padding-#{$i} {
+//     padding: 100% / $padding-item * $i;
+//   }
+// }
+  
+
